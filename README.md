@@ -3,7 +3,9 @@
 [![Tests](https://github.com/tus34887-bot/28h-shift-checker/actions/workflows/test.yml/badge.svg)](https://github.com/tus34887-bot/28h-shift-checker/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A mobile-first web app that reads a workplace's shift schedule PDF and tells a worker whether they stay within Japan's **28 hours in any 7 days** limit for student visas, and which shifts they can still safely take.
+A mobile-first web app, built for my part-time job, that reads our shift schedule PDF and tells a worker whether they stay within Japan's **28 hours in any 7 days** limit for student visas, and which shifts they can still safely take.
+
+> **Built for one workplace.** The app only understands my workplace's schedule PDF layout and applies its own shift rules: five shifts a day at fixed times, 30-minute overlaps between back-to-back shifts, breaks by number of shifts, and 15 extra minutes for opening and closing leaders. Other schedules won't be read correctly without changing [`js/config.js`](js/config.js) and the parser.
 
 **Live site:** https://tus34887-bot.github.io/28h-shift-checker/
 
@@ -19,8 +21,8 @@ With this app, you upload the PDF, type your name, and get the answer on your ph
 
 ## What it does
 
-- **Reads the schedule PDF in the browser.** It supports two table layouts: with and without position letters in the header.
-- **Calculates paid hours per day** from the workplace's rules: back-to-back shifts overlap by 30 minutes, unpaid breaks depend on how many shifts you work that day, and shift leaders start or finish 15 minutes outside the normal times.
+- **Reads the schedule PDF in the browser.** It supports the two versions of my workplace's table: with and without position letters in the header.
+- **Calculates paid hours per day** from my workplace's rules: back-to-back shifts overlap by 30 minutes, unpaid breaks depend on how many shifts you work that day, and shift leaders start or finish 15 minutes outside the normal times.
 - **Checks every rolling 7-day window**, including windows that cross from one schedule into the next.
 - **Shows room left each day** and marks which extra shifts you could add without going over.
 - **Keeps your data on your device.** Schedules are saved in the browser, with JSON backup and restore, and you can delete them at any time.
@@ -93,7 +95,7 @@ npm test        # Node 20 or later, no packages to install
 
 ## Limitations
 
-- It is built for one workplace's PDF format and shift times. Supporting another workplace means changing `config.js` and possibly the parser.
+- It only works with my workplace's schedule PDF and shift rules (see the note at the top). Supporting another workplace means changing `config.js` and likely the parser.
 - The 28-hour limit covers all jobs combined, and this app only counts shifts from the uploaded schedule.
 - The long-vacation rule (up to 8 hours a day during official school breaks) is not modelled.
 
